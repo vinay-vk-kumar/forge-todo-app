@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@vercel/next",
+      "config": {
+        "distDir": ".next"
+      }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/server/index.ts"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/client/:path*"
+    }
+  ]
+}
