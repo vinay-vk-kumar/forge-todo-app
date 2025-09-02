@@ -12,6 +12,9 @@ import { Suspense } from "react"
 export const metadata: Metadata = {
   title: "Forge",
   description: "Todo App",
+  icons: {
+    icon: "/forge-logo.svg",
+  },
 }
 
 export default function RootLayout({
