@@ -22,8 +22,8 @@ import todoRouter from './routes/todo.js';
 // |                 Application Configuration                    |
 // ----------------------------------------------------------------
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const app: express.Application = express();
+// const PORT = process.env.PORT || 3000;
 /**
  * Define allowed origins for CORS. It's a best practice to manage this
  * via environment variables for different environments (development, production).
@@ -63,6 +63,7 @@ app.use(express.json());
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/todo", todoRouter);
 
+export default app;
 // ----------------------------------------------------------------
 // |                 Server and Database Startup                  |
 // ----------------------------------------------------------------
@@ -71,61 +72,61 @@ app.use("/api/v1/todo", todoRouter);
  * The main function to initialize the application.
  * It first connects to the database and then starts the Express server.
  */
-async function main() {
-  try {
-    // 1. Connect to the database using Prisma Client.
-    await prisma.$connect();
-    console.log('✅ Successfully connected to the database.');
+// async function main() {
+//   try {
+//     // 1. Connect to the database using Prisma Client.
+//     await prisma.$connect();
+//     console.log('✅ Successfully connected to the database.');
 
-    // 2. If the database connection is successful, start the Express server.
-    const server = app.listen(PORT, () => {
-      console.log(`🚀 Server is running and listening on port ${PORT}`);
-      console.log(`🔗 Live at http://localhost:${PORT}`);
-    });
+//     // 2. If the database connection is successful, start the Express server.
+//     const server = app.listen(PORT, () => {
+//       console.log(`🚀 Server is running and listening on port ${PORT}`);
+//       console.log(`🔗 Live at http://localhost:${PORT}`);
+//     });
 
-    return server;
+//     return server;
 
-  } catch (error) {
-    // 3. If the database connection fails, log the error and exit the process.
-    console.error('❌ Failed to connect to the database.');
-    console.error(error);
-    process.exit(1); // Exit with a failure code
-  }
-}
+//   } catch (error) {
+//     // 3. If the database connection fails, log the error and exit the process.
+//     console.error('❌ Failed to connect to the database.');
+//     console.error(error);
+//     process.exit(1); // Exit with a failure code
+//   }
+// }
 
-const server = await main();
+// const server = await main();
 
-// ----------------------------------------------------------------
-// |                    Graceful Shutdown Logic                   |
-// ----------------------------------------------------------------
+// // ----------------------------------------------------------------
+// // |                    Graceful Shutdown Logic                   |
+// // ----------------------------------------------------------------
 
-/**
- * Handles graceful shutdown of the server. This is crucial for production
- * environments to ensure that all ongoing requests are finished and resources
- * (like the database connection) are released properly before the process exits.
- * * We listen for 'SIGTERM' (e.g., from Docker, Kubernetes) and 'SIGINT' (e.g., Ctrl+C).
- */
-const gracefulShutdown = async (signal: string) => {
-  console.log(`\n🚨 Received ${signal}. Starting graceful shutdown...`);
+// /**
+//  * Handles graceful shutdown of the server. This is crucial for production
+//  * environments to ensure that all ongoing requests are finished and resources
+//  * (like the database connection) are released properly before the process exits.
+//  * * We listen for 'SIGTERM' (e.g., from Docker, Kubernetes) and 'SIGINT' (e.g., Ctrl+C).
+//  */
+// const gracefulShutdown = async (signal: string) => {
+//   console.log(`\n🚨 Received ${signal}. Starting graceful shutdown...`);
 
-  // 1. Stop the server from accepting new connections.
-  server.close(async () => {
-    console.log('✅ HTTP server closed.');
+//   // 1. Stop the server from accepting new connections.
+//   server.close(async () => {
+//     console.log('✅ HTTP server closed.');
 
-    // 2. Disconnect from the database.
-    await prisma.$disconnect();
-    console.log('🔌 Prisma Client disconnected.');
+//     // 2. Disconnect from the database.
+//     await prisma.$disconnect();
+//     console.log('🔌 Prisma Client disconnected.');
 
-    // 3. Exit the process.
-    process.exit(0);
-  });
+//     // 3. Exit the process.
+//     process.exit(0);
+//   });
 
-  // If the server hasn't closed after a timeout, force exit.
-  setTimeout(() => {
-    console.error('❌ Could not close connections in time, forcing shutdown.');
-    process.exit(1);
-  }, 10000); // 10-second timeout
-};
+//   // If the server hasn't closed after a timeout, force exit.
+//   setTimeout(() => {
+//     console.error('❌ Could not close connections in time, forcing shutdown.');
+//     process.exit(1);
+//   }, 10000); // 10-second timeout
+// };
 
-process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+// process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+// process.on('SIGINT', () => gracefulShutdown('SIGINT'));
