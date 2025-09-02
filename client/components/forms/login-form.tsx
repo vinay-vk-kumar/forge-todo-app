@@ -18,7 +18,7 @@ const schema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(6, "Minimum 6 characters"),
 })
-const BACKNED_URL = process.env.BACKNED_URL
+const BACKEND_URL = process.env.BACKEND_URL
 type FormValues = z.infer<typeof schema>
 
 export default function LoginForm() {
@@ -44,7 +44,7 @@ export default function LoginForm() {
         email: values.email,
         password: values.password
       }
-      const response = await axios.post(`${BACKNED_URL}/api/v1/user/signIn`, userDetails)
+      const response = await axios.post(`${BACKEND_URL}/api/v1/user/signIn`, userDetails)
       if(response.data.success){
         setToken(response.data.token)
         localStorage.setItem("email",response.data.email)

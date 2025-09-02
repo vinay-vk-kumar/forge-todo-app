@@ -19,7 +19,7 @@ const schema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(6, "Minimum 6 characters"),
 })
-const BACKNED_URL = process.env.BACKNED_URL
+const BACKEND_URL = process.env.BACKEND_URL
 type FormValues = z.infer<typeof schema>
 
 export default function SignupForm() {
@@ -44,7 +44,7 @@ export default function SignupForm() {
         password: values.password
       }
       // await signup(values.email, values.password, values.name)
-      const response = await axios.post(`${BACKNED_URL}/api/v1/user/signup`, userDetails)
+      const response = await axios.post(`${BACKEND_URL}/api/v1/user/signup`, userDetails)
       if(response.data.email){
         toast({ title: "Signup successful — please login" })
         router.replace("/login")

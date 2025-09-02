@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
 const router = useRouter();
-const BACKNED_URL = process.env.BACKNED_URL
+const BACKEND_URL = process.env.BACKEND_URL
 useEffect(() => {
   // 1. Create an AbortController to cancel the request if the component unmounts
   const controller = new AbortController();
@@ -25,7 +25,7 @@ useEffect(() => {
     if (token) {
       try {
         const response = await axios.get(
-          `${BACKNED_URL}/api/v1/user/validate-token`,
+          `${BACKEND_URL}/api/v1/user/validate-token`,
           {
             headers: { Authorization: `Bearer ${token}` }, // Standard practice to include "Bearer"
             signal: controller.signal, // Pass the signal to axios
