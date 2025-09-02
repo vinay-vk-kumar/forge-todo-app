@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/controllers/todocontroller.ts","./src/controllers/usercontroller.ts","./src/lib/prisma.ts","./src/middleware/authentication.ts","./src/routes/todo.ts","./src/routes/user.ts","./src/types/index.ts"],"version":"5.9.2"}
