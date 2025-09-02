@@ -7,13 +7,13 @@ import { AuthProvider } from "@/components/auth/auth-context"
 import { useEffect } from "react"
 import { clearAuth, getToken } from "@/lib/auth-storage"
 import axios from "axios"
-import { BACKNED_URL } from "@/config"
+
 import { useRouter } from "next/navigation"
 
 
 export default function LoginPage() {
 const router = useRouter();
-
+const BACKNED_URL = process.env.BACKNED_URL
 useEffect(() => {
   // 1. Create an AbortController to cancel the request if the component unmounts
   const controller = new AbortController();

@@ -11,7 +11,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { useToast } from "@/hooks/use-toast"
 import axios from "axios"
-import { BACKNED_URL } from "@/config"
+
 import { useState } from "react"
 
 const schema = z.object({
@@ -19,7 +19,7 @@ const schema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(6, "Minimum 6 characters"),
 })
-
+const BACKNED_URL = process.env.BACKNED_URL
 type FormValues = z.infer<typeof schema>
 
 export default function SignupForm() {
