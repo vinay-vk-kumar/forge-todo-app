@@ -63,7 +63,7 @@ app.use(express.json());
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/todo", todoRouter);
 
-export default app;
+// export default app;
 // ----------------------------------------------------------------
 // |                 Server and Database Startup                  |
 // ----------------------------------------------------------------
@@ -72,29 +72,40 @@ export default app;
  * The main function to initialize the application.
  * It first connects to the database and then starts the Express server.
  */
-// async function main() {
-//   try {
-//     // 1. Connect to the database using Prisma Client.
-//     await prisma.$connect();
-//     console.log('✅ Successfully connected to the database.');
+async function main() {
+  try {
+    // 1. Connect to the database using Prisma Client.
+    await prisma.$connect();
+    console.log('✅ Successfully connected to the database.');
 
-//     // 2. If the database connection is successful, start the Express server.
-//     const server = app.listen(PORT, () => {
-//       console.log(`🚀 Server is running and listening on port ${PORT}`);
-//       console.log(`🔗 Live at http://localhost:${PORT}`);
-//     });
+    // 2. If the database connection is successful, start the Express server.
+    const server = app.listen(PORT, () => {
+      console.log(`🚀 Server is running and listening on port ${PORT}`);
+      console.log(`🔗 Live at http://localhost:${PORT}`);
+    });
 
-//     return server;
+    return server;
 
-//   } catch (error) {
-//     // 3. If the database connection fails, log the error and exit the process.
-//     console.error('❌ Failed to connect to the database.');
-//     console.error(error);
-//     process.exit(1); // Exit with a failure code
-//   }
-// }
+  } catch (error) {
+    // 3. If the database connection fails, log the error and exit the process.
+    console.error('❌ Failed to connect to the database.');
+    console.error(error);
+    process.exit(1); // Exit with a failure code
+  }
+}
 
-// const server = await main();
+main()
+  .then(server => {
+    console.log('✅ Main function has completed successfully.');
+    // The server is already running at this point from inside main().
+  })
+  .catch(error => {
+    // This is also unlikely to be hit because of the internal try/catch in main,
+    // which calls process.exit(1).
+    console.error('❌ An unhandled error occurred outside the main try/catch block.');
+    console.error(error);
+    process.exit(1);
+  });
 
 // // ----------------------------------------------------------------
 // // |                    Graceful Shutdown Logic                   |
