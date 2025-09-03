@@ -23,7 +23,7 @@ import todoRouter from './routes/todo.js';
 // ----------------------------------------------------------------
 
 const app: express.Application = express();
-// const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 /**
  * Define allowed origins for CORS. It's a best practice to manage this
  * via environment variables for different environments (development, production).
