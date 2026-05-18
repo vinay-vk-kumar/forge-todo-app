@@ -33,9 +33,7 @@
     "typescript": "^5.9.2",
     "cross-env": "^7.0.3",
     "rimraf": "^6.0.1",
-    "tsx": "^4.19.4"
-  },
-  "devDependencies": {
+    "tsx": "^4.19.4",
     "@types/passport": "^1.0.17",
     "@types/passport-google-oauth20": "^2.0.17"
   }
