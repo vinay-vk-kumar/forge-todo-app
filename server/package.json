@@ -4,17 +4,18 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "npx rimraf dist && npx prisma generate && tsc -b",
-    "prestart": "npx prisma migrate deploy",
-    "start": "npx cross-env NODE_ENV=production node ./dist/index.js",
-    "dev": "npx cross-env NODE_ENV=development npx tsx src/index.ts"
+    "build": "rimraf dist && prisma generate && tsc -b",
+    "prestart": "prisma migrate deploy",
+    "start": "cross-env NODE_ENV=production node ./dist/index.js",
+    "dev": "cross-env NODE_ENV=development tsx src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^6.15.0",
+    "@prisma/client": "6.15.0",
+    "prisma": "6.15.0",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/dotenv": "^8.2.3",
@@ -33,6 +34,9 @@
   },
   "devDependencies": {
     "@types/passport": "^1.0.17",
-    "@types/passport-google-oauth20": "^2.0.17"
+    "@types/passport-google-oauth20": "^2.0.17",
+    "cross-env": "^7.0.3",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.4"
   }
 }
