@@ -91,9 +91,6 @@ function VerifyEmailForm() {
                 <p className="text-sm text-muted-foreground">
                     We have sent a 6-digit code to <span className="font-medium text-foreground">{email}</span>.
                 </p>
-                <p className="text-xs text-muted-foreground italic">
-                    (Check your server console for the code)
-                </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
